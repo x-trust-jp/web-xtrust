@@ -6,20 +6,19 @@
 
 - **Next.js 16 (App Router) + TypeScript** — 完全静的（SSG）生成
 - **Tailwind CSS v4** — デザイントークンを `@theme` に定義
-- **デザインシステム** — v002 モックアップ（`farm-xtrust/60_harvest/lp/v002`）を忠実移植
+- **デザイン／コンテンツの正本** — v002 モックアップ `Hero.html`
+  （`farm-xtrust/60_harvest/lp/v002/Hero.html`）を忠実に移植
   - `src/app/mockup-base.css` / `src/app/mockup-sections.css` がモックアップCSSの移植版
   - フォントは Google Fonts（Inter / Noto Sans JP / IBM Plex Mono）を `<link>` で読み込み
 - **デプロイ** — Vercel（`x-trust-jp/web-xtrust`）
 
-## コンテンツ運用（farm → web 一方向同期）
+## 正本について
 
-訴求コピーの正本は farm 側の `content.yaml`。web リポジトリへは一方向に同期する。
+レイアウト・コピーともに **`Hero.html`（現行モックアップ）が唯一の正本**。
+各セクションコンポーネントは `Hero.html` の DOM を 1:1 で移植している。
+訴求を変えるときは、まず farm 側の `Hero.html` を更新し、その差分を本実装へ反映する。
 
-- 正本: `farm-xtrust/60_harvest/lp/v002/content.yaml`
-- web 側の受け口: `src/content/content.yaml`
-- ビルド時に `src/content/content.ts` が読み込み・型付けして各セクションへ供給
-
-訴求を変更するときは farm 側を更新し、`content.yaml` を web へコピーする。
+> 旧 `content.yaml`／旧 `Hero (old dummy).html` は廃止済み（構成が古かったため）。
 
 ## 構成
 
@@ -29,20 +28,34 @@ src/
     layout.tsx              # フォント読込・SEO/OGP メタデータ
     page.tsx                # 14セクションを縦に並べる
     globals.css             # Tailwind + @theme トークン + 移植CSS
-    mockup-base.css         # 移植: 基盤・hero・各セクション
-    mockup-sections.css     # 移植: 再利用ブロック
+    mockup-base.css         # 移植: 基盤・hero・shells・footer
+    mockup-sections.css     # 移植: 各セクションの構成ブロック
   components/
-    Logo / Cta / Eyebrow / Placeholder / SectionMap
-    sections/               # Hero 〜 Footer の14セクション
-  content/
-    content.yaml            # 正本（farm から同期）
-    content.ts              # 読込・型付け・セクション別 export
-    types.ts                # コンテンツ型
-    links.ts                # CTA リンク先（v1 はスタブ）
+    Logo / Eyebrow / Placeholder / SectionMap
+    sections/               # S01Hero 〜 S14Footer（Hero.html の14セクション）
 public/
   images/                   # ロゴ・端末画像
   downloads/                # 営業資料 PDF
 ```
+
+### セクション対応（Hero.html → コンポーネント）
+
+| # | Section | Component |
+|---|---------|-----------|
+| 01 | Hero | `S01Hero` |
+| 02 | Problem | `S02Problem` |
+| 03 | Product / Hub | `S03Product` |
+| 04 | Solution | `S04Solution` |
+| 05 | Base Ability | `S05BaseAbility` |
+| 06 | Use Case 01 · 多言語会議 | `S06UseCaseMeeting` |
+| 07 | Use Case 02 · 文字起こし/翻訳 | `S07UseCaseTranscribe` |
+| 08 | Use Case 03 · 配布前レビュー | `S08UseCaseReview` |
+| 09 | Use Case 04 · PMI / DD | `S09UseCasePMIDD` |
+| 10 | Use Case 05 · 会議マスター | `S10UseCaseMaster` |
+| 11 | Lifecycle | `S11Lifecycle` |
+| 12 | PoC | `S12Poc` |
+| 13 | Final CTA | `S13FinalCta` |
+| 14 | Footer | `S14Footer` |
 
 ## 開発
 
@@ -52,13 +65,10 @@ npm run build    # 本番ビルド（SSG）
 npm run start    # 本番サーバ
 ```
 
-## 公開前の TODO（content.yaml: soil_alignment_needed）
+## 公開前の TODO
 
-正本が `status: draft` のため、以下は soil 確定後にコピーを差し替える。
-
-- **beta_offer** — ベータ訴求。旧「実質月額0円」ではなく確定オファー「初期費用無料」を採用中。最終コピー要確定。
-- **problem_3** — 攻撃事例の出典（SQLite / OpenSSL）が claim 未登録。公開前に出典確認。
-- **faq** — 暫定回答。soil と照合して磨く。
-- **footer / legal** — 運営会社・特商法表記・問い合わせ方式が未確定（farm-014）。リンクはプレースホルダ。
-- **CTA リンク先** — `src/content/links.ts` の `beta_signup` / `book_meeting` はスタブ。確定後に差し替え。
-- **画像** — Use Case 等の図解はプレースホルダ。実写・イラストを後差し込み。
+- **CTA リンク先** — 「営業資料」は `/downloads/xtrust-sales-deck.pdf` に接続済み。
+  「商談予約」は仮（`#sec-13`）。予約URL確定後に差し替え。
+- **法人表記（Footer）** — 運営会社・所在地・連絡先・特商法表記は「公開前」プレースホルダ。確定後に掲載。
+- **画像** — Use Case / Lifecycle の図解は `.ph` プレースホルダ。実写・イラストを後差し込み。
+- **SITE_URL** — `layout.tsx` の `SITE_URL` は仮（`web-xtrust.vercel.app`）。本番URL確定後に差し替え。

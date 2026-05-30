@@ -4,43 +4,38 @@ import { useEffect, useRef, useState } from "react";
 
 type Entry = { id: string; label: string; light: boolean };
 
-// Right-side sticky section map. Mirrors the mockup behaviour:
-// appears once the hero is scrolled past, highlights the section
-// nearest the viewport centre, and flips to dark dots over light
-// sections. Uses scroll position (rAF-throttled) for the centre
-// match, which is simpler and more accurate here than IO thresholds.
+// Right-side sticky section map. Ported from the mockup's inline script:
+// appears once the hero is scrolled past, highlights the section nearest
+// the viewport centre, and flips to dark dots over light sections.
 const ENTRIES: Entry[] = [
-  { id: "hero", label: "Hero", light: true },
-  { id: "problem_1", label: "Problem 1", light: true },
-  { id: "problem_2", label: "Problem 2", light: false },
-  { id: "problem_3", label: "Problem 3", light: true },
-  { id: "solution", label: "Solution", light: false },
-  { id: "product", label: "Product", light: true },
-  { id: "core_value", label: "Core Value", light: false },
-  { id: "use_cases", label: "Use Cases", light: true },
-  { id: "how_it_works", label: "How it Works", light: false },
-  { id: "pricing", label: "Pricing", light: true },
-  { id: "beta_offer", label: "Beta", light: false },
-  { id: "faq", label: "FAQ", light: true },
-  { id: "final_cta", label: "Apply", light: false },
-  { id: "footer", label: "Footer", light: false },
+  { id: "sec-01", label: "01 Hero", light: false },
+  { id: "sec-02", label: "02 Problem", light: true },
+  { id: "sec-03", label: "03 Product", light: false },
+  { id: "sec-04", label: "04 Solution", light: true },
+  { id: "sec-05", label: "05 Ability", light: false },
+  { id: "sec-06", label: "06 Meeting", light: true },
+  { id: "sec-07", label: "07 Transcribe", light: false },
+  { id: "sec-08", label: "08 Review", light: true },
+  { id: "sec-09", label: "09 PMI / DD", light: false },
+  { id: "sec-10", label: "10 Meeting Master", light: true },
+  { id: "sec-11", label: "11 Lifecycle", light: false },
+  { id: "sec-12", label: "12 PoC", light: true },
+  { id: "sec-13", label: "13 Apply", light: false },
+  { id: "sec-14", label: "14 Footer", light: false },
 ];
 
 export function SectionMap() {
-  const navRef = useRef<HTMLElement>(null);
   const [current, setCurrent] = useState(0);
   const [visible, setVisible] = useState(false);
   const [onLight, setOnLight] = useState(false);
+  const ticking = useRef(false);
 
   useEffect(() => {
-    const sections = ENTRIES.map((e) =>
-      document.getElementById(`sec-${e.id}`),
-    );
-    const hero = document.getElementById("sec-hero");
-    let ticking = false;
+    const sections = ENTRIES.map((e) => document.getElementById(e.id));
+    const hero = document.getElementById("sec-01");
 
     const update = () => {
-      ticking = false;
+      ticking.current = false;
       const vh = window.innerHeight;
 
       const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
@@ -64,8 +59,8 @@ export function SectionMap() {
     };
 
     const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
+      if (ticking.current) return;
+      ticking.current = true;
       requestAnimationFrame(update);
     };
 
@@ -80,14 +75,13 @@ export function SectionMap() {
 
   return (
     <nav
-      ref={navRef}
       className={`section-map${visible ? " visible" : ""}${onLight ? " on-light" : ""}`}
       aria-label="ページ内ナビ"
     >
       {ENTRIES.map((e, i) => (
         <a
           key={e.id}
-          href={`#sec-${e.id}`}
+          href={`#${e.id}`}
           className={i === current ? "current" : undefined}
           aria-label={e.label}
         >

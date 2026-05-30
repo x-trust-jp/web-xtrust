@@ -1,24 +1,22 @@
+import type { CSSProperties, ReactNode } from "react";
+
 // Image placeholder matching the mockup's `.ph` block. Real photography
-// / illustration is dropped in later (content.yaml visual_hint copy:
-// "後ほど実写・イラストを差し込みます").
+// / illustration is dropped in later ("後ほど実写・イラストを差し込みます").
 export function Placeholder({
   tag,
   children,
-  className,
-  minHeight,
+  style,
+  ariaLabel,
 }: {
   tag?: string;
-  children?: React.ReactNode;
-  className?: string;
-  minHeight?: number;
+  children?: ReactNode;
+  style?: CSSProperties;
+  ariaLabel?: string;
 }) {
   return (
-    <div
-      className={`ph${className ? ` ${className}` : ""}`}
-      style={minHeight ? { minHeight } : undefined}
-    >
+    <div className="ph" style={style} aria-label={ariaLabel}>
       {tag && <span className="ph-tag">{tag}</span>}
-      {children && <div className="ph-c">{children}</div>}
+      {children && <span className="ph-c">{children}</span>}
     </div>
   );
 }

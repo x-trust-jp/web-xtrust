@@ -1,4 +1,5 @@
-// Section eyebrow: index number + rule + uppercase latin label + optional JA gloss.
+// Standard section eyebrow: index number + rule + latin label + JA gloss.
+// (Hero and Final CTA use bespoke eyebrows inline.)
 export function Eyebrow({
   num,
   label,
@@ -6,14 +7,14 @@ export function Eyebrow({
 }: {
   num: string;
   label: string;
-  ja?: string;
+  ja: string;
 }) {
   return (
     <div className="eyebrow">
       <span className="num">{num}</span>
       <span className="line" />
       <span>{label}</span>
-      {ja && <span className="ja">{ja}</span>}
+      <span className="ja">{ja}</span>
     </div>
   );
 }
