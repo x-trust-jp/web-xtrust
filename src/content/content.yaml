@@ -1,0 +1,273 @@
+# =====================================================================
+# XTRUST 製品ページ コンテンツ正本 (LP content source of truth)
+# ---------------------------------------------------------------------
+# このファイルは web 実装が参照する「訴求の正本」。
+# 実際のウェブサイトは別リポ/別フォルダで実装する:
+#   /Users/kaya.matsumoto/projects/xtrust/web/product-page
+#
+# 参照方法（一方向エクスポート）:
+#   訴求が変わったら、このファイルを farm で更新し、web 側へ同期する。
+#   web のデプロイ単位に farm を含めない（soil の未確定情報を公開しないため）。
+#   farm が「公開してよいコピーだけ」を web に押し出す。
+#
+# 価格・PoC条件・claim は soil が正本。本ファイルの該当箇所は soil と
+# 整合させること（status: needs_soil_alignment を参照）。
+# =====================================================================
+
+meta:
+  artifact: lp
+  version: v002
+  page_type: product_page          # 情報網羅型の製品紹介ページ（縦スクロール）
+  status: draft                     # web実装前に下記 soil_alignment_needed の解消が必要
+  target_repo: /Users/kaya.matsumoto/projects/xtrust/web/product-page
+  source_design_mock: 60_harvest/lp/v002/Hero.html
+  source_section_map: 50_greenhouse/lp/v001/section_map.md
+  output_model: onepager_markdown   # 参照: 00_soil/farm/output_models.md
+  grounding:
+    - 00_soil/brand/key_copy.md
+    - 00_soil/business/commercial_offer.md
+    - 00_soil/business/pricing_strategy.md
+    - 00_soil/product/offline_ai_terminal.md
+    - 00_soil/claims/claim_registry.yaml
+  soil_alignment_needed:
+    - id: beta_offer_legacy_terms
+      detail: >
+        Beta Offer の「月額50,000円ディスカウントで実質0円」は旧PoC条件。
+        現soil（pricing_strategy / commercial_offer）では「導入初期費用10万円を
+        6か月以上契約で無料」に更新済み。LPのベータ訴求をどう打つか要判断。
+    - id: problem3_evidence
+      detail: >
+        Problem 3 の攻撃事例のうち claim 登録済みは ai_offensive_capability_rising
+        （Mythos / Google Threat Intelligence のゼロデイ）。SQLite(Big Sleep) /
+        OpenSSL(AISLE) の個別事例は evidence 未登録。公開前に出典確認・claim化。
+    - id: faq_provisional
+      detail: FAQ は暫定回答。公開前に soil（commercial_offer / offline_ai_terminal）と照合。
+    - id: legal_entity
+      detail: 法人主体・特商法表記・問い合わせフォーム実装方式は未確定（farm-014 連動）。
+
+brand:
+  name: XTRUST
+  product_category: Local AI Device
+  target_audience: "M&A / PMI / DD・金融・医療・人事・経営企画 向け"
+
+# 主CTA / サブCTA（Hero・Beta Offer・Final CTA の3箇所で使用）
+cta:
+  primary:
+    label: "ベータ版に申し込む（実質月額0円）"   # ← needs_soil_alignment: beta_offer_legacy_terms
+    action: beta_signup
+  secondary:
+    - label: "営業資料をダウンロード"
+      action: download_deck
+    - label: "30分の商談で相談する"
+      action: book_meeting
+
+# 縦スクロール順のセクション
+sections:
+  - id: hero
+    name: "Hero（ファーストビュー）"
+    eyebrow: "M&A / PMI / DD・金融・医療・人事・経営企画 向け"
+    headline: "オフラインAIで実現する、ゼロリスクAX"
+    subhead: >
+      通信機能0のラップトップやタブレットに軽量LLMを搭載。
+      機密情報も安心してAIで処理できる、フルマネージドな端末レンタルサービス。
+    cta: [primary, download_deck]
+    visual_hint: "通信機能0のノートPC/タブレットを大きく配置。Wi-Fi/通信が物理的に切れている表現。静けさ・信頼感・セキュリティ。"
+    grounding: [00_soil/brand/key_copy.md]
+
+  - id: problem_1
+    name: "Problem 1：機密情報ほどクラウドAIに渡せない"
+    headline: "重要な情報ほど、クラウドAIには与えられない。"
+    body: "AI活用のボトルネックは、性能でもコストでもなく、まずセキュリティです。"
+    bullets:
+      - "財務情報、売上情報、人事情報"
+      - "契約、稟議、会議音声、手書きメモ"
+      - "PDF / PPT / Excel / 紙資料など形式の違うドキュメント"
+      - "M&A / PMI / DD、金融、医療などの高機密業務"
+    closing: "外に出せないからこそ、オフラインで扱えるAIが必要になる。"
+    visual_hint: "右側に定性ポジショニングマップ（横:クラウドに出しにくさ × 縦:AIで処理したい必要性）。右上にXTRUSTが効く領域。"
+    grounding: [00_soil/business/investor_deck_core_message.md]
+
+  - id: problem_2
+    name: "Problem 2：禁止するとシャドウAIが増える"
+    headline: "禁止すればリスクが消えるのか？むしろ増大する。"
+    body: >
+      AIの利便性に慣れた従業員は、会社が禁止しても高い確率で個人のデバイスや
+      私用アカウントを使い続けます。これがシャドウAI（AIの無断使用）です。
+    bullets:
+      - "AIを活用したワークフローに慣れた社員は、禁止されても「なんとかして使おう」とする"
+      - "見えない場所での利用は、会社がマネジメントも把握もできないリスクを生む"
+      - "禁止しているつもりで、実態はリスクが増大している"
+    visual_hint: "左:禁止(NG/壁) 右:私用デバイスへの流出(会社には見えない点線)。構図参照 seedbank: diagram_shadow_ai_and_approval_wall。"
+    grounding: [00_soil/market/market_hypothesis.md]
+
+  - id: problem_3
+    name: "Problem 3：AIが最強の攻撃者になる時代"
+    status: needs_soil_alignment      # problem3_evidence
+    headline: "AIの知能が上がるほど、あらゆるシステムは危険にさらされる。"
+    body: >
+      最新のAIは、長年見逃されてきたゼロデイ脆弱性を自律的に発見・悪用する能力を
+      持ち始めました。AIの知能が上がるほど、攻撃コストは下がり、時間が経つほど
+      リスクは高くなります。
+    cards:
+      - title: "SQLiteゼロデイ（Google Big Sleep, 2024年）"
+        body: "10億台以上のデバイスで使われるSQLiteに潜む未知の脆弱性をAIエージェントが自律発見。人間の研究者と500万件の自動テストが見逃し続けた欠陥を突き止めた。"
+        evidence_status: not_registered
+      - title: "OpenSSL全12件のゼロデイ（AISLE, 2026年1月）"
+        body: "世界中のWebサーバーが依存する最も堅牢なライブラリとされるOpenSSLに対し、AIが12件全てのゼロデイを発見した。"
+        evidence_status: not_registered
+      - title: "AIが開発した2FAバイパス（Google Threat Intelligence, 2026年5月）"
+        body: "AIが自律開発した初の実戦エクスプロイトが確認された。2要素認証を完全に突破する攻撃手法であり、Google専門家は「これは氷山の一角」と警告する。"
+        evidence_status: google_tio_ai_developed_zero_day_2026_05
+    closing: "オンラインに繋がっている限り、どんなシステムも安全ではない。"
+    grounding: [00_soil/claims/claim_registry.yaml#ai_offensive_capability_rising]
+
+  - id: solution
+    name: "Solution：ゼロトラスト・スタンドアローン解"
+    headline: "機密情報を守る、ゼロトラスト・スタンドアローン解。"
+    body: >
+      XTRUSTが提案するのは、通信機能を完全にカットしたデバイス単体での安全なAI環境です。
+      一般的なローカルLLMのイメージは、高価なマシン、専門的な運用、高い維持費です。
+      しかしXTRUSTは、超ハイスペックGPUマシンを一社に一台置くような提案ではありません。
+      軽量LLMを入れた通信機能ゼロのノートPCやタブレットを、必要な現場に配る提案です。
+    visual_hint: "左右対比。左:従来(大型GPU/専門運用/高コスト)を暗く。右:XTRUST(通信0のノートPC/タブレットを現場に配る)を明るく。"
+    grounding: [00_soil/brand/positioning_paradox.md]
+
+  - id: product
+    name: "Product：軽量LLM入りの端末をデバイスごとレンタル"
+    headline: "軽量LLM入りの端末を、デバイスごとレンタルできます。"
+    body: "ノートPCやタブレットのようなお手元のデバイスにAIが入った状態で届きます。"
+    bullets:
+      - "軽量LLM搭載の Local AI Device"
+      - "デバイスごとのレンタル提供"
+      - "月額50,000円から"
+      - "セキュリティ更新、LLM更新、テンプレート更新はフルマネージド"
+      - "返却・再貸与時は、初期化・クリーンインストール等を実施"
+    visual_hint: "中央に端末。周囲に「レンタル/更新/テンプレート/返却時初期化/フルマネージド」を円環配置。"
+    grounding: [00_soil/business/commercial_offer.md, 00_soil/product/offline_ai_terminal.md]
+
+  - id: core_value
+    name: "Core Value：AIのコア価値は非構造データの理解と整理"
+    headline: "AIのコア価値は、非構造データの理解と整理にある。"
+    body: >
+      AIの真の力は、外部検索ではなく、目の前にある非構造データを理解し整理する力です。
+      外部接続の検索やSaaS・ERPへの接続は、あくまで付加価値です。最もコアな価値は、
+      会議の音声、議事録、乱雑なメモなど、目の前の情報を瞬時に構造化・要約することです。
+      完全にオフラインの環境でも、このコア価値は発揮されます。
+    visual_hint: "左:非構造データの山 → 中央:Local AI Device → 右:構造化アウトプット（要約/論点/ToDo/フォーマット/下書き）。"
+    grounding: [00_soil/business/soa_value_thesis.md]
+
+  - id: use_cases
+    name: "Use Cases：5つの活用シーン"
+    headline: "こんな業務で、XTRUSTは効きます。"
+    layout_hint: "タブ切替or縦カード5パターン。モバイルはアコーディオン（最初の1つは開いた状態）。各カードに before/after の小図解。"
+    items:
+      - id: uc_pmi_dd
+        title: "投資先PMI / DD資料を統一フォーマットへ"
+        body: "形式の違う資料（DD資料、財務レポート、会議メモ、組織図、KPI資料、課題一覧）を、レビュー可能なPMI / DD下書き（会社概要、主要KPI、重要論点、リスク、優先対応事項）に変換します。"
+        guard: "完全自動でDD判断できるように見せない / 投資判断代替表現にしない / 実在案件のように見せない"
+      - id: uc_report_format
+        title: "レポート資料を自社形式へ瞬時に変換"
+        body: "財務レポート、決算関連資料、売上レポート、人事関連資料、事業部ごとの報告書など、入力形式が違っても、読み手が比較しやすい形式へ下書き変換します。"
+        guard: "「瞬時」を処理時間保証のように見せない / 全フォーマット無条件対応に見せない / 下書きである点を消さない"
+      - id: uc_meeting_minutes
+        title: "多言語会議を文字起こし・翻訳・議事録化"
+        body: "さまざまな言語が飛び交う会議でも、全員が同じ情報を見ながら進められます。会議音声を文字起こし、必要に応じて翻訳、決定事項とToDoを整理、会議後に議事録として持ち帰る。"
+        guard: "プロ通訳と同等と表現しない / リアルタイム精度を保証しない / 医療・法務通訳の代替に見せない"
+      - id: uc_meeting_master
+        title: "定例会議の流れを覚える会議マスター"
+        body: "特定の定例会議について、前回の流れ、未完了タスク、次アクションを把握した状態で支援します。"
+        guard: "実装済み機能として断定しない / 全会議を自動理解するように見せない / 機密会話の恒久保存を連想させない"
+        status: needs_soil_alignment
+        note: "feature_catalog 未登録。ローンチ前に product soil への昇格を検討（farm-backlog連携）。"
+      - id: uc_pre_distribution_review
+        title: "資料・チラシ・提案書を配布前にレビュー"
+        body: "外注ラフや提案資料を、配布前に誤字脱字・表記揺れ・条件違い・価格や数字の言い違い・不自然な表現の観点でチェックできます。"
+        guard: "ミスゼロと表現しない / 法務レビュー・監査の代替に見せない / 最終責任がAIにあるように見せない"
+    grounding: [00_soil/product/product_lines.md]
+
+  - id: how_it_works
+    name: "How it Works：導入から返却までのライフサイクル"
+    headline: "端末が届けば、始められます。"
+    steps:
+      - "お問い合わせ・ベータ申込"
+      - "端末提供（軽量LLM搭載済み）"
+      - "利用開始（オフラインで業務処理）"
+      - "フルマネージド更新（セキュリティ / LLM / テンプレート）"
+      - "返却・再貸与時の初期化・クリーンインストール"
+    visual_hint: "左→右の横フロー（モバイルは縦）。"
+    grounding: [00_soil/business/commercial_offer.md]
+
+  - id: pricing
+    name: "Pricing：月額50,000円から（フルマネージド）"
+    headline: "月額50,000円から、フルマネージド。"
+    # 現soil（pricing_strategy.md / commercial_offer.md, 2026-05-30）に整合
+    plan:
+      base_monthly: "50,000円〜（Local AI Device 本体 + FeliCaカードリーダー同梱）"
+      initial_fee: "導入初期費用 100,000円（6か月以上契約で無料）"
+      min_term: "最短契約期間 3か月"
+      options:
+        - "サーマルプリンター +5,000円 / 月"
+        - "ブックスキャナー +5,000円 / 月（フルセット 月60,000円）"
+      includes:
+        - "セキュリティ更新・LLM更新・テンプレート更新（フルマネージド）"
+        - "返却・再貸与時の初期化・クリーンインストール"
+      note: "詳細条件はお問い合わせください（カスタマイズ・複数台導入等）。価格は暫定。"
+    visual_hint: "シンプルな価格カード1枚 + 含まれるものをチェックリストで。"
+    grounding: [00_soil/business/pricing_strategy.md, 00_soil/business/commercial_offer.md]
+
+  - id: beta_offer
+    name: "Beta Offer：主CTAブロック"
+    status: needs_soil_alignment      # beta_offer_legacy_terms
+    headline: "いま、ベータ版なら実質月額0円。"
+    _legacy_copy: >
+      導入インタビューやアンケートへのご協力で、月額50,000円をディスカウント → 実質月額0円。
+      （旧PoC条件。section_map v001 由来）
+    current_soil_offer: >
+      現行 soil では「導入初期費用10万円を6か月以上契約で無料」に更新済み。
+      月額5万円ディスカウントによる実質0円は旧条件。LPのベータ訴求を
+      「初期費用無料」軸にするか、別オファーにするかを要判断してから公開する。
+    full_access_copy: "ベータ版でも全機能をご利用いただけます。"
+    full_access_list:
+      - "情報整理・要約・構造化"
+      - "フォーマット変換・下書き生成"
+      - "文字起こし・翻訳・議事録化"
+      - "配布前資料レビュー"
+      - "会議コンテキスト継続保持"
+      - "フルマネージド（セキュリティ・LLM・テンプレート更新）"
+    cooperation_note: "フィードバック協力の内容例：導入インタビュー / ヒアリング / アンケート回答"
+    cta: [primary, book_meeting]
+    grounding: [00_soil/business/commercial_offer.md, 00_soil/business/pricing_strategy.md]
+    note: "PoC条件は暫定。確定条件として公開しない。"
+
+  - id: faq
+    name: "FAQ"
+    status: needs_soil_alignment      # faq_provisional
+    items:
+      - q: "オフラインで本当にAI機能が使えますか？"
+        a: "はい。軽量LLMが端末内で動作するため、ネットワーク接続なしで要約・整理・翻訳等が可能です。"
+      - q: "どの業務で効きますか？"
+        a: "M&A/PMI/DD・金融・医療・人事・経営企画など、機密性の高い業務で特に効果が出ます。"
+      - q: "端末はどんな機種ですか？"
+        a: "ノートPCまたはタブレットからお選びいただけます（詳細はお問い合わせ）。"
+      - q: "更新はどうやって行いますか？"
+        a: "フルマネージドで実施します。具体的な更新方式は契約時にご説明します。"
+      - q: "返却時のデータはどうなりますか？"
+        a: "初期化・クリーンインストールを実施します。"
+      - q: "ベータ参加にはどんな条件がありますか？"
+        a: "導入インタビュー / ヒアリング / アンケートへのご協力をお願いしています。"
+    note: "暫定回答。公開前に soil の確定情報と照合し、磨いてから掲載する。"
+
+  - id: final_cta
+    name: "Final CTA"
+    headline: "機密情報のままAIを使える、新しい選択肢を試してみませんか？"
+    cta: [primary, download_deck, book_meeting]
+
+  - id: footer
+    name: "Footer"
+    status: needs_soil_alignment      # legal_entity
+    items:
+      - "運営会社名（法人化前は屋号 + 連絡先メールでも可）"
+      - "お問い合わせ先"
+      - "プライバシーポリシー・特定商取引法表記（公開前必須）"
+      - "コピーライト"
+    note: "法人化前は最低限の責任主体明示にとどめる。公開前に farm-014 と連動。"
