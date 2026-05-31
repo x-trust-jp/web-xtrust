@@ -24,3 +24,17 @@
 /* Faithful port of the v002 mockup design system. */
 @import "./mockup-base.css";
 @import "./mockup-sections.css";
+
+/* ===== Site-level overrides ===== */
+
+/* Compact buttons in header nav */
+.topbar .topbar-btn {
+  padding: 7px 16px;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+}
+
+/* bg-x: subtle watermark on dark hero */
+.hero.beta .bg-x {
+  opacity: 0.06;
+}

@@ -8,17 +8,17 @@ import "./globals.css";
 const FONTS_HREF =
   "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@300;400;500;600;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap";
 
-const SITE_URL = "https://web-xtrust.vercel.app";
+const SITE_URL = "https://x-trust.jp";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "XTRUST — オフラインAIで実現する、ゼロリスクAX",
+  title: "XTRUST — オフラインAIで、機密業務を安全に。",
   description:
-    "通信機能0のラップトップやタブレットに軽量LLMを搭載。機密情報も安心してAIで処理できる、フルマネージドな端末レンタルサービス。",
+    "通信機能0のローカルAI搭載ノートPCレンタルサービス。契約・財務・人事・医療など高機密データを1バイトも外部に漏らさず、AIで処理。エックストラスト株式会社。",
   openGraph: {
-    title: "XTRUST — オフラインAIで実現する、ゼロリスクAX",
+    title: "XTRUST — オフラインAIで、機密業務を安全に。",
     description:
-      "通信機能0のラップトップやタブレットに軽量LLMを搭載。機密情報も安心してAIで処理できる、フルマネージドな端末レンタルサービス。",
+      "通信機能0のローカルAI搭載ノートPCレンタルサービス。契約・財務・人事・医療など高機密データを1バイトも外部に漏らさず、AIで処理。",
     url: SITE_URL,
     siteName: "XTRUST",
     locale: "ja_JP",
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "XTRUST — オフラインAIで実現する、ゼロリスクAX",
+    title: "XTRUST — オフラインAIで、機密業務を安全に。",
     description:
-      "通信機能0のラップトップやタブレットに軽量LLMを搭載。機密情報も安心してAIで処理できる、フルマネージドな端末レンタルサービス。",
+      "通信機能0のローカルAI搭載ノートPCレンタルサービス。契約・財務・人事・医療など高機密データを1バイトも外部に漏らさず、AIで処理。",
   },
 };
 

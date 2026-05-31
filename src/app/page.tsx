@@ -1,37 +1,55 @@
-import { SectionMap } from "@/components/SectionMap";
-import { S01Hero } from "@/components/sections/S01Hero";
-import { S02Problem } from "@/components/sections/S02Problem";
-import { S03Product } from "@/components/sections/S03Product";
-import { S04Solution } from "@/components/sections/S04Solution";
-import { S05BaseAbility } from "@/components/sections/S05BaseAbility";
-import { S06UseCaseMeeting } from "@/components/sections/S06UseCaseMeeting";
-import { S07UseCaseTranscribe } from "@/components/sections/S07UseCaseTranscribe";
-import { S08UseCaseReview } from "@/components/sections/S08UseCaseReview";
-import { S09UseCasePMIDD } from "@/components/sections/S09UseCasePMIDD";
-import { S10UseCaseMaster } from "@/components/sections/S10UseCaseMaster";
-import { S11Lifecycle } from "@/components/sections/S11Lifecycle";
-import { S12Poc } from "@/components/sections/S12Poc";
-import { S13FinalCta } from "@/components/sections/S13FinalCta";
-import { S14Footer } from "@/components/sections/S14Footer";
+import { TopHeader } from "@/components/TopHeader";
+import { Logo } from "@/components/Logo";
 
 export default function Home() {
   return (
-    <>
-      <SectionMap />
-      <S01Hero />
-      <S02Problem />
-      <S03Product />
-      <S04Solution />
-      <S05BaseAbility />
-      <S06UseCaseMeeting />
-      <S07UseCaseTranscribe />
-      <S08UseCaseReview />
-      <S09UseCasePMIDD />
-      <S10UseCaseMaster />
-      <S11Lifecycle />
-      <S12Poc />
-      <S13FinalCta />
-      <S14Footer />
-    </>
+    <section className="hero beta" id="top">
+      <TopHeader />
+
+      <div className="bg-x" aria-hidden="true">X</div>
+
+      <div className="copy">
+        <h1 className="headline">
+          ローカル×オフライン
+          <br />
+          すべての業務へ
+          <br />
+          安心・安全なAIを
+        </h1>
+        <p className="sub">
+          通信機能0のローカルAI搭載ノートPCを月5万円～レンタル可能。
+          <br />
+          契約、財務、人事、医療、監査、投資判断、研究開発のような高機密データを、
+          <br />
+          1バイトも外部に漏らすことなくAIで処理することが可能に。
+        </p>
+        <div className="cta-row">
+          <a className="btn btn-primary" href="/product">
+            製品詳細を見る
+            <svg
+              className="arr"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
+          <a className="btn btn-ghost" href="/downloads/xtrust-sales-deck.pdf">
+            資料ダウンロード
+          </a>
+        </div>
+      </div>
+
+      <div className="product-wrap">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/images/laptop_001.png" alt="XTRUST 端末" />
+      </div>
+
+      <div className="bottom-logo" aria-hidden="true">
+        <Logo preserveAspectRatio="xMidYMid meet" />
+      </div>
+    </section>
   );
 }
