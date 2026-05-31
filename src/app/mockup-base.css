@@ -261,11 +261,11 @@ img{ -webkit-user-drag:none; user-select:none }
 .hero .btn-ghost:hover{ background:rgba(255,255,255,0.08); border-color:#fff }
 
 .product-wrap{
-  position:absolute;left:70%;top:50%;transform:translate(-50%,-50%);
-  z-index:7;display:flex;justify-content:center;align-items:center;pointer-events:none;
+  position:absolute;right:-25vw;top:50%;transform:translateY(-50%);
+  z-index:7;pointer-events:none;
 }
 .product-wrap img{
-  height:78vh;width:auto;display:block;
+  width:75vw;height:auto;display:block;
   filter:drop-shadow(0 30px 40px rgba(20,16,40,.22)) drop-shadow(0 6px 12px rgba(20,16,40,.15));
 }
 
@@ -1146,6 +1146,10 @@ footer.footer .fnote{
 /* ==========================================================
    Responsive
    ========================================================== */
+@media (min-width: 1201px){
+  .product-wrap{ left:50%; right:auto; }
+  .product-wrap img{ width:900px; }
+}
 @media (max-width: 1200px){
   .sec{ padding: 96px 56px 80px }
   .beta{ padding: 100px 56px 96px }

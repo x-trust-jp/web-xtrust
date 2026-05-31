@@ -2,23 +2,23 @@
 
 オフラインAI端末レンタルサービス「XTRUST」の製品ページ。縦スクロール型の情報網羅型LP。
 
+## 本番URL
+
+**https://x-trust.jp**（Vercel にて稼働中）
+
+## サイト構成
+
+| ページ | 内容 |
+|--------|------|
+| `/`（トップ） | XTRUSTデバイスレンタルサービスの紹介LP（本リポジトリ） |
+| `/about`（予定） | エックストラスト株式会社の会社概要（内容未定） |
+
 ## 技術スタック
 
 - **Next.js 16 (App Router) + TypeScript** — 完全静的（SSG）生成
 - **Tailwind CSS v4** — デザイントークンを `@theme` に定義
-- **デザイン／コンテンツの正本** — v002 モックアップ `Hero.html`
-  （`farm-xtrust/60_harvest/lp/v002/Hero.html`）を忠実に移植
-  - `src/app/mockup-base.css` / `src/app/mockup-sections.css` がモックアップCSSの移植版
-  - フォントは Google Fonts（Inter / Noto Sans JP / IBM Plex Mono）を `<link>` で読み込み
+- **フォント** — Google Fonts（Inter / Noto Sans JP / IBM Plex Mono）を `<link>` で読み込み
 - **デプロイ** — Vercel（`x-trust-jp/web-xtrust`）
-
-## 正本について
-
-レイアウト・コピーともに **`Hero.html`（現行モックアップ）が唯一の正本**。
-各セクションコンポーネントは `Hero.html` の DOM を 1:1 で移植している。
-訴求を変えるときは、まず farm 側の `Hero.html` を更新し、その差分を本実装へ反映する。
-
-> 旧 `content.yaml`／旧 `Hero (old dummy).html` は廃止済み（構成が古かったため）。
 
 ## 構成
 
@@ -28,17 +28,17 @@ src/
     layout.tsx              # フォント読込・SEO/OGP メタデータ
     page.tsx                # 14セクションを縦に並べる
     globals.css             # Tailwind + @theme トークン + 移植CSS
-    mockup-base.css         # 移植: 基盤・hero・shells・footer
-    mockup-sections.css     # 移植: 各セクションの構成ブロック
+    mockup-base.css         # 基盤・hero・shells・footer
+    mockup-sections.css     # 各セクションの構成ブロック
   components/
     Logo / Eyebrow / Placeholder / SectionMap
-    sections/               # S01Hero 〜 S14Footer（Hero.html の14セクション）
+    sections/               # S01Hero 〜 S14Footer（14セクション）
 public/
   images/                   # ロゴ・端末画像
   downloads/                # 営業資料 PDF
 ```
 
-### セクション対応（Hero.html → コンポーネント）
+### セクション一覧
 
 | # | Section | Component |
 |---|---------|-----------|
@@ -71,4 +71,4 @@ npm run start    # 本番サーバ
   「商談予約」は仮（`#sec-13`）。予約URL確定後に差し替え。
 - **法人表記（Footer）** — 運営会社・所在地・連絡先・特商法表記は「公開前」プレースホルダ。確定後に掲載。
 - **画像** — Use Case / Lifecycle の図解は `.ph` プレースホルダ。実写・イラストを後差し込み。
-- **SITE_URL** — `layout.tsx` の `SITE_URL` は仮（`web-xtrust.vercel.app`）。本番URL確定後に差し替え。
+- **会社概要ページ** — `/about` のコンテンツ未定。
