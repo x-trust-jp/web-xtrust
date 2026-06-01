@@ -1,0 +1,160 @@
+/* ==========================================================
+   Top page (/) — full-screen key visual hero.
+   Brand-new design, intentionally independent from the
+   /product mockup stylesheets. Scoped under `.home`.
+   ========================================================== */
+
+.home {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  /* Bleed color that blends with the photo's left edge so the
+     hero never shows a seam if the image can't fully cover. */
+  background-color: #5ea2bd;
+  color: #ffffff;
+  font-family: "Noto Sans JP", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ---- Background photo (woman + giant X) ---- */
+.home__bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("/images/hero-visual_woman_002.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* Keep the subject (right side) in frame, leave the left
+     open for copy. Tuned for typical landscape viewports. */
+  background-position: 42% center;
+}
+
+/* ---- Transparent header (no bar, logo + nav float on photo) ---- */
+.home__header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px clamp(28px, 6vw, 84px);
+}
+
+.home__logo {
+  display: inline-flex;
+  align-items: center;
+}
+.home__logo svg {
+  height: 22px;
+  width: auto;
+  display: block;
+}
+
+.home__nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 2.4vw, 40px);
+}
+.home__nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  opacity: 0.88;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+.home__nav a:hover {
+  opacity: 1;
+}
+.home__nav-cta {
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  padding: 9px 22px;
+  opacity: 1 !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.home__nav-cta:hover {
+  background-color: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+/* ---- Copy block (left, vertically centered) ---- */
+.home__copy {
+  position: absolute;
+  left: clamp(28px, 6vw, 84px);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  max-width: 640px;
+}
+
+.home__headline {
+  font-weight: 700;
+  font-size: clamp(38px, 5.4vw, 76px);
+  line-height: 1.28;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 24px rgba(30, 80, 105, 0.18);
+}
+
+.home__sub {
+  margin-top: 30px;
+  font-weight: 400;
+  font-size: clamp(13.5px, 1.15vw, 17px);
+  line-height: 2.05;
+  opacity: 0.96;
+  text-shadow: 0 1px 18px rgba(30, 80, 105, 0.14);
+}
+
+/* ---- Tablet ---- */
+@media (max-width: 900px) {
+  .home__bg {
+    background-position: 78% center;
+  }
+  .home__copy {
+    max-width: 70%;
+  }
+}
+
+/* ---- Mobile (portrait): subject sits lower, copy on top ---- */
+@media (max-width: 640px) {
+  .home {
+    /* darker blend at the bottom so the lower-placed subject
+       and the copy don't fight for contrast */
+    background-color: #5ea2bd;
+  }
+  .home__bg {
+    /* push the subject to the lower-right, freeing the upper
+       area for the copy block */
+    background-size: 165% auto;
+    background-position: right 78%;
+  }
+  .home__header {
+    padding: 22px 22px;
+  }
+  .home__logo svg {
+    height: 14px;
+  }
+  .home__nav {
+    gap: 16px;
+  }
+  .home__nav-cta {
+    padding: 7px 15px;
+    font-size: 12px;
+  }
+  /* hide secondary links on the smallest screens, keep CTA */
+  .home__nav a:not(.home__nav-cta) {
+    display: none;
+  }
+  .home__copy {
+    top: 16%;
+    transform: none;
+    max-width: 88%;
+  }
+  .home__headline {
+    font-size: clamp(30px, 8.5vw, 44px);
+  }
+}

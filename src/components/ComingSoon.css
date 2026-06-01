@@ -1,0 +1,69 @@
+/* ==========================================================
+   Placeholder "coming soon" page for not-yet-built routes.
+   Same water-blue tone as the top page. Scoped under `.cs`.
+   ========================================================== */
+
+.cs {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #62a4be 0%, #71bcd3 55%, #5ea2bd 100%);
+  color: #ffffff;
+  font-family: "Noto Sans JP", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.cs__header {
+  padding: 28px clamp(24px, 5vw, 72px);
+}
+.cs__header svg {
+  height: 20px;
+  width: auto;
+  display: block;
+}
+
+.cs__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 24px 80px;
+}
+.cs__eyebrow {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.4em;
+  opacity: 0.8;
+  margin-bottom: 18px;
+}
+.cs__title {
+  font-weight: 700;
+  font-size: clamp(28px, 4vw, 44px);
+  letter-spacing: 0.02em;
+}
+.cs__msg {
+  margin-top: 18px;
+  font-size: 15px;
+  line-height: 1.9;
+  opacity: 0.92;
+}
+.cs__back {
+  margin-top: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 999px;
+  padding: 11px 26px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  transition: background-color 0.18s ease;
+}
+.cs__back:hover {
+  background: rgba(255, 255, 255, 0.14);
+}

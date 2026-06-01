@@ -1,0 +1,270 @@
+/* ==========================================================
+   Download / material request page (/download).
+   Shares the top page's tone: water-blue field, white text,
+   Noto Sans JP. The form sits in a white card on top.
+   Scoped under `.dl`.
+   ========================================================== */
+
+.dl {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background:
+    linear-gradient(135deg, #62a4be 0%, #71bcd3 55%, #5ea2bd 100%);
+  color: #ffffff;
+  font-family: "Noto Sans JP", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ---- Transparent header (same language as the top page) ---- */
+.dl__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px clamp(24px, 5vw, 72px);
+}
+.dl__logo {
+  display: inline-flex;
+  align-items: center;
+}
+.dl__logo svg {
+  height: 20px;
+  width: auto;
+  display: block;
+}
+.dl__nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.2vw, 36px);
+}
+.dl__nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  opacity: 0.88;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+.dl__nav a:hover {
+  opacity: 1;
+}
+
+/* ---- 2-column body ---- */
+.dl__container {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(32px, 5vw, 72px);
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(12px, 2vw, 28px) clamp(24px, 5vw, 72px) 80px;
+  align-items: start;
+}
+
+/* ---- Left: material info ---- */
+.dl__badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+}
+.dl__title {
+  margin-top: 22px;
+  font-weight: 700;
+  font-size: clamp(26px, 3.2vw, 40px);
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+}
+.dl__lead {
+  margin-top: 14px;
+  font-size: clamp(14px, 1.1vw, 16px);
+  line-height: 1.9;
+  opacity: 0.95;
+}
+
+/* cover thumbnail placeholder */
+.dl__thumb {
+  margin-top: 28px;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.06));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+}
+.dl__thumb svg {
+  height: 26px;
+  width: auto;
+}
+.dl__thumb span {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  opacity: 0.85;
+}
+
+.dl__points {
+  margin-top: 34px;
+}
+.dl__points h2 {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+}
+.dl__points ul {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.dl__points li {
+  position: relative;
+  padding-left: 26px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.dl__points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  /* small check mark */
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z'/%3E%3C/svg%3E") center/12px no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z'/%3E%3C/svg%3E") center/12px no-repeat;
+}
+.dl__desc {
+  margin-top: 28px;
+  font-size: 13.5px;
+  line-height: 1.95;
+  opacity: 0.92;
+}
+
+/* ---- Right: form card ---- */
+.dl__card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: clamp(24px, 3vw, 40px);
+  box-shadow: 0 24px 60px rgba(20, 70, 95, 0.22);
+  color: #1d2a33;
+}
+.dl__field {
+  margin-bottom: 18px;
+}
+.dl__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.dl__label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 7px;
+  color: #33414c;
+}
+.dl__req {
+  color: #d4663a;
+  margin-left: 3px;
+  font-size: 12px;
+}
+.dl__input,
+.dl__select {
+  width: 100%;
+  border: 1px solid #d2dde3;
+  border-radius: 8px;
+  padding: 11px 13px;
+  font-size: 14px;
+  color: #1d2a33;
+  background: #fbfcfd;
+  font-family: inherit;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.dl__select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23667781' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 20px;
+  padding-right: 36px;
+  cursor: pointer;
+}
+.dl__input:focus,
+.dl__select:focus {
+  outline: none;
+  border-color: #5ea2bd;
+  box-shadow: 0 0 0 3px rgba(94, 162, 189, 0.18);
+  background: #fff;
+}
+.dl__submit {
+  width: 100%;
+  margin-top: 6px;
+  border: none;
+  border-radius: 999px;
+  padding: 15px 20px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  background: linear-gradient(135deg, #14333f, #1d4e60);
+  cursor: pointer;
+  transition: filter 0.18s ease, transform 0.05s ease;
+  font-family: inherit;
+}
+.dl__submit:hover {
+  filter: brightness(1.12);
+}
+.dl__submit:active {
+  transform: translateY(1px);
+}
+.dl__note {
+  margin-top: 16px;
+  font-size: 11.5px;
+  line-height: 1.8;
+  color: #6a7882;
+}
+.dl__note a {
+  color: #2f7d9e;
+  text-decoration: underline;
+}
+.dl__sent {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #eaf6ee;
+  border: 1px solid #b9e0c6;
+  color: #1d6b3a;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 860px) {
+  .dl__container {
+    grid-template-columns: 1fr;
+  }
+  .dl__right {
+    order: -1;
+  }
+}
+@media (max-width: 560px) {
+  .dl__nav a:not(.dl__nav--keep) {
+    display: none;
+  }
+  .dl__row {
+    grid-template-columns: 1fr;
+  }
+}

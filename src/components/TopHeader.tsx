@@ -10,9 +10,9 @@ export function TopHeader() {
       <nav className="nav" aria-label="Primary">
         <Link href="/product">製品概要</Link>
         <Link href="/about">会社概要</Link>
-        <a href="/downloads/xtrust-sales-deck.pdf" className="btn btn-ghost topbar-btn">
-          資料ダウンロード
-        </a>
+        <Link href="/download" className="btn btn-ghost topbar-btn">
+          資料請求
+        </Link>
         <a href="/product#sec-13" className="btn btn-primary topbar-btn">
           お問い合わせ
         </a>
