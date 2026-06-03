@@ -1,4 +1,8 @@
 import Link from "next/link";
+import { HomeHeroCopy } from "@/components/HomeHeroCopy";
+import { HomeLifecycleSection } from "@/components/HomeLifecycleSection";
+import { HomeMobileMenu } from "@/components/HomeMobileMenu";
+import { HomeProductSection } from "@/components/HomeProductSection";
 import { Logo } from "@/components/Logo";
 import { SiteFooter } from "@/components/SiteFooter";
 import "./home.css";
@@ -6,39 +10,41 @@ import "./home.css";
 export default function Home() {
   return (
     <>
-      <section className="home">
-        <div className="home__bg" aria-hidden="true" />
+      <main>
+        <section className="home">
+          <div className="home__bg" aria-hidden="true" />
 
-      <header className="home__header">
-        <Link href="/" className="home__logo" aria-label="XTRUST">
-          <Logo fill="#ffffff" />
-        </Link>
-        <nav className="home__nav" aria-label="Primary">
-          <Link href="/product">製品概要</Link>
-          <Link href="/about">会社概要</Link>
-          <Link href="/download">資料請求</Link>
-          <a href="/product#sec-13" className="home__nav-cta">
-            お問い合わせ
-          </a>
-        </nav>
-      </header>
+          <header className="home__header">
+            <Link href="/" className="home__logo" aria-label="XTRUST">
+              <Logo fill="#ffffff" />
+            </Link>
+            <nav className="home__nav" aria-label="Primary">
+              <Link href="/product">製品概要</Link>
+              <Link href="/about">会社概要</Link>
+              <Link href="/download">資料請求</Link>
+              <a href="/product#sec-13" className="home__nav-cta">
+                お問い合わせ
+              </a>
+            </nav>
+            <div className="home__menu">
+              <HomeMobileMenu />
+            </div>
+          </header>
 
-      <div className="home__copy">
-        <h1 className="home__headline">
-          ローカルで、
-          <br />
-          オフラインな AI。
-        </h1>
-        <p className="home__sub">
-          高機密データを、1バイトも外部に漏らすことなく、
-          <br />
-          AI で処理することが可能に。
-          <br />
-          これまで諦めていた現場の AIX が、いよいよ始まります。
-        </p>
-        </div>
-      </section>
+          <HomeHeroCopy />
+        </section>
 
+        <HomeProductSection
+          variant="light"
+          sectionId="home-product-light"
+          titleId="home-product-light-title"
+        />
+        <HomeProductSection
+          sectionId="home-product-teal"
+          titleId="home-product-teal-title"
+        />
+        <HomeLifecycleSection />
+      </main>
       <SiteFooter />
     </>
   );
