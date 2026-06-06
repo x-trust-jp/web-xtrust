@@ -6,12 +6,16 @@ export function HomeProductSection({
   sectionId = "home-product",
   titleId = "home-product-title",
 }: {
-  variant?: "teal" | "light";
+  variant?: "teal" | "light" | "case-light";
   sectionId?: string;
   titleId?: string;
 }) {
   if (variant === "teal") {
     return <HomeCaseCarousel sectionId={sectionId} titleId={titleId} />;
+  }
+
+  if (variant === "case-light") {
+    return <HomeCaseCarousel sectionId={sectionId} titleId={titleId} variant="light" />;
   }
 
   return (

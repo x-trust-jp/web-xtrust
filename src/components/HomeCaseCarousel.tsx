@@ -132,9 +132,11 @@ const CASES: CaseSlide[] = [
 export function HomeCaseCarousel({
   sectionId,
   titleId,
+  variant = "teal",
 }: {
   sectionId: string;
   titleId: string;
+  variant?: "teal" | "light";
 }) {
   const [trackIndex, setTrackIndex] = useState(1);
   const [isTransitionEnabled, setIsTransitionEnabled] = useState(true);
@@ -172,7 +174,11 @@ export function HomeCaseCarousel({
 
   return (
     <section
-      className="home-product home-product--teal home-case"
+      className={`home-product home-case ${
+        variant === "light"
+          ? "home-product--case-light home-case--light"
+          : "home-product--teal"
+      }`}
       id={sectionId}
       aria-labelledby={titleId}
     >

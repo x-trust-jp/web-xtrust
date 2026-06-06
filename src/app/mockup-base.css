@@ -233,8 +233,8 @@ img{ -webkit-user-drag:none; user-select:none }
 .headline{
   font-family:'Noto Sans JP','Inter',sans-serif;
   font-weight:900;
-  font-size:clamp(42px,4.9vw,80px);
-  line-height:1.05;letter-spacing:-0.035em;
+  font-size:clamp(42px,4.2vw,80px);
+  line-height:1.2;letter-spacing:-0.035em;
   color:#fff;
   white-space:nowrap;
 }

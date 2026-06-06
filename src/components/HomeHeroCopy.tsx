@@ -1,68 +1,19 @@
-"use client";
-
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
 export function HomeHeroCopy() {
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-    let revealTimer: number | null = null;
-    let fallbackTimer: number | null = null;
-
-    const reveal = () => {
-      revealTimer = window.setTimeout(() => {
-        if (!cancelled) {
-          setIsReady(true);
-        }
-      }, 160);
-    };
-
-    const fontSet = document.fonts;
-    if (!fontSet) {
-      reveal();
-      return () => {
-        cancelled = true;
-        if (revealTimer !== null) {
-          window.clearTimeout(revealTimer);
-        }
-      };
-    }
-
-    fallbackTimer = window.setTimeout(reveal, 1200);
-
-    fontSet.ready.then(() => {
-      if (fallbackTimer !== null) {
-        window.clearTimeout(fallbackTimer);
-      }
-      reveal();
-    });
-
-    return () => {
-      cancelled = true;
-      if (fallbackTimer !== null) {
-        window.clearTimeout(fallbackTimer);
-      }
-      if (revealTimer !== null) {
-        window.clearTimeout(revealTimer);
-      }
-    };
-  }, []);
-
   return (
-    <div className={`home__copy${isReady ? " is-ready" : ""}`}>
+    <div className="home__copy is-ready">
       <h1 className="home__headline">
         <span className="home__headline-line">ローカルで、</span>
         <span className="home__headline-line home__headline-line--accent">
           オフラインな{" "}
           <span className="home__headline-ai" aria-label="AI">
             <Image
-              src="/images/icon_ai.svg"
+              src="/images/icon_ai.png"
               alt=""
               aria-hidden="true"
-              width={207}
-              height={239}
+              width={512}
+              height={512}
             />
           </span>
         </span>

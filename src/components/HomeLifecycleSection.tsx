@@ -1,9 +1,15 @@
 import Image from "next/image";
 
-export function HomeLifecycleSection() {
+export function HomeLifecycleSection({
+  variant = "light",
+}: {
+  variant?: "light" | "dark";
+}) {
   return (
     <section
-      className="home-product home-product--light home-lifecycle"
+      className={`home-product ${
+        variant === "dark" ? "home-product--light home-lifecycle--dark" : "home-product--case-light"
+      } home-lifecycle`}
       id="home-lifecycle"
       aria-labelledby="home-lifecycle-title"
     >

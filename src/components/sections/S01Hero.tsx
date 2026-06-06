@@ -31,25 +31,25 @@ export function S01Hero() {
 
       <div className="eyebrow" aria-label="対象業務">
         <span className="line" />
-        <span className="ja">M&amp;A / PMI / DD・金融・医療・人事・経営企画 向け</span>
+        <span className="ja">ローカルAI搭載PCを「月5万円～」レンタル可能</span>
       </div>
 
       <div className="copy">
         <h1 className="headline">
-          ローカル×オフライン
+          オフラインAIで
           <br />
-          すべての業務へ
+          すべての業務に
           <br />
-          安心・安全なAIを
+          ゼロリスク環境を
         </h1>
         <p className="sub">
-          通信機能0のローカルAI搭載ノートPCを月5万円～レンタル可能。
+          「通信機能ゼロ」のローカルLLM搭載PCで実現する、圧倒的に低リスクなAI環境。財務、戦略、人事、契約、法務、顧客情報などの高機密データを、1バイトも外部に漏らさずAI活用可能。
           <br />
-          契約、財務、人事、医療、監査、投資判断、研究開発のような高機密データを、1バイトも外部に漏らすことなく、AIで処理することが可能に。これまで諦めていた業務のAIXが、いよいよ始まります。
+          これまで諦めていた現場のAIトランスフォーメーションが、いよいよ始まります。
         </p>
         <div className="cta-row">
           <a className="btn btn-primary" href="#sec-12">
-            実質0円で試す
+            お問い合わせ
             <svg
               className="arr"
               viewBox="0 0 24 24"
@@ -61,7 +61,7 @@ export function S01Hero() {
             </svg>
           </a>
           <a className="btn btn-ghost" href="#sec-13">
-            営業資料をダウンロード
+            資料ダウンロード
           </a>
         </div>
       </div>

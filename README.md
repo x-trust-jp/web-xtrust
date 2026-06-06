@@ -10,19 +10,17 @@
 
 | URL | 状態 | 内容 |
 |-----|------|------|
-| `/` | ✅ 稼働中 | トップページ。新KVのHero（100vh）＋ 共通フッター |
-| `/product` | ✅ 稼働中 | XTRUSTデバイスレンタルの製品LP（S01Hero〜S14Footer） |
+| `/` | ✅ 稼働中 | 既存の製品LPをトップへ配置した現行トップ（S01Hero〜S14Footer） |
+| `/product` | ✅ 稼働中 | `/` と同内容の製品LPエイリアス |
+| `/product-2` | 🚧 調整中 | 新KVベースの次期トップ案。今後こちらへ順次移植予定 |
 | `/download` | ✅ 稼働中 | 資料請求ページ。フォーム送信は mailto 方式（暫定） |
 | `/about`・`/news`・`/careers`・`/contact` | 🚧 ダミー | 「準備中」プレースホルダ（`ComingSoon`） |
 | `/privacy`・`/terms`・`/security`・`/legal` | 🚧 ダミー | 規約・ポリシー系の「準備中」プレースホルダ |
 
 ### トップページについて（/）
 
-新キービジュアルでリブランディング。`src/app/page.tsx` が本体。
-Hero（`section.home`・100vh・背景は `hero-visual_woman_002.jpg`）＋ 共通フッター（`SiteFooter`）の構成。
-ヘッダーは白背景バーではなく、透明背景にロゴ＋ナビが乗るシームレス仕様。
-スタイルは `/product` の mockup CSS とは分離した `src/app/home.css`（`.home` スコープ）。
-今後、Hero とフッターの間にセクションを積み増していく想定。
+現時点では、`/` は既存の製品LPをそのままトップへ配置したページ。
+本体は `src/components/ProductLandingPage.tsx`。`src/app/page.tsx` と `src/app/product/page.tsx` の両方から共有利用している。
 
 ### 資料請求ページについて（/download）
 
@@ -39,8 +37,14 @@ Hero（`section.home`・100vh・背景は `hero-visual_woman_002.jpg`）＋ 共�
 
 ### 製品LPについて（/product）
 
-`src/app/product/page.tsx` が本体。S01Hero〜S14Footer の14セクション構成。
+`/` と同内容。`src/components/ProductLandingPage.tsx` を共有利用。
 セクションコンポーネントは `src/components/sections/` 以下。
+
+### 次期トップ案について（/product-2）
+
+旧トップの新KV案を `src/app/product-2/page.tsx` へ退避。
+本体は `src/components/ProductPageV2.tsx`。スタイルは `src/app/home.css`（`.home` スコープ）。
+今後はこちらをベースに、既存 `/product` の要素を順次差し替えていく想定。
 
 ## 技術スタック
 
@@ -55,13 +59,15 @@ Hero（`section.home`・100vh・背景は `hero-visual_woman_002.jpg`）＋ 共�
 src/
   app/
     layout.tsx              # フォント読込・SEO/OGP メタデータ（サイト共通）
-    page.tsx                # / トップページ（Hero + SiteFooter）
-    home.css                # トップ専用スタイル（.home スコープ）
+    page.tsx                # / 現行トップ（既存製品LPを表示）
+    home.css                # /product-2 用スタイル（.home スコープ）
     globals.css             # Tailwind + @theme トークン + CSS
     mockup-base.css         # 基盤・hero・shells・footer（/product 用）
     mockup-sections.css     # 各セクションの構成ブロック（/product 用）
     product/
-      page.tsx              # /product 製品LP本体
+      page.tsx              # /product（/ と同内容の製品LP）
+    product-2/
+      page.tsx              # /product-2 次期トップ案
     download/
       page.tsx              # /download 資料請求ページ
       RequestForm.tsx       # 入力フォーム（client・mailto送信）
@@ -69,6 +75,8 @@ src/
     about/ news/ careers/ contact/      # ダミーページ（ComingSoon）
     privacy/ terms/ security/ legal/    # ダミーページ（規約・ポリシー系）
   components/
+    ProductLandingPage.tsx  # / と /product で共有する製品LP本体
+    ProductPageV2.tsx       # /product-2 用の新KVページ本体
     TopHeader.tsx           # 製品LP用グローバルナビ（資料請求は /download へ）
     SiteFooter.tsx (+ .css) # サイト共通フッター（3カラム + ソーシャル）
     ComingSoon.tsx (+ .css) # 「準備中」プレースホルダページ
@@ -108,8 +116,8 @@ npm run start    # 本番サーバ
 
 ## TODO
 
-### トップページ（/）
-- **本文セクション** — Hero とフッターの間に、製品詳細などのセクションを移植・追加していく。
+### 次期トップ案（/product-2）
+- **差し替え作業** — `/` で使っている製品LPの構成要素を、必要な順で `/product-2` に順次移植・再設計していく。
 
 ### 資料請求ページ（/download）
 - **送信方式** — 現状は mailto（暫定）。Resend 等のサーバー送信に差し替え予定。
