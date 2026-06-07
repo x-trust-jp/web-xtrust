@@ -238,6 +238,17 @@ img{ -webkit-user-drag:none; user-select:none }
   color:#fff;
   white-space:nowrap;
 }
+.headline--animated{
+  display:flex;
+  flex-direction:column;
+  gap:0.16em;
+  white-space:normal;
+}
+.headline-line{
+  display:block;
+  opacity:0;
+  transform:translateY(14px);
+}
 .headline-jp{
   margin-top:18px;
   font-family:'Noto Sans JP','Inter',sans-serif;
@@ -252,8 +263,43 @@ img{ -webkit-user-drag:none; user-select:none }
   font-weight:400;font-size:14px;line-height:1.95;letter-spacing:0.02em;
   color:rgba(255,255,255,0.88);max-width:480px;
 }
+.copy.is-ready .headline-line{
+  animation:heroCopyFadeUp 180ms ease-out forwards;
+}
+.copy.is-ready .headline-line:nth-child(2){
+  animation-delay:40ms;
+}
+.copy.is-ready .headline-line:nth-child(3){
+  animation-delay:80ms;
+}
+.copy.is-ready .sub{
+  animation:heroCopyFadeUpSub 180ms ease-out 120ms both;
+}
+@keyframes heroCopyFadeUp{
+  from{
+    opacity:0;
+    transform:translateY(14px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+@keyframes heroCopyFadeUpSub{
+  from{
+    opacity:0;
+    transform:translateY(14px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
 .hero .cta-row{
   margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;
+}
+.hero-actions{
+  display:none;
 }
 .hero .btn-primary{ background:#fff; color:#0e0d14; border-color:#fff }
 .hero .btn-primary:hover{ background:#e6e3ed; border-color:#e6e3ed }
@@ -1185,13 +1231,93 @@ footer.footer .fnote{
   .topbar{ padding: 22px 18px 0 }
   .topbar .nav{ display:none }
   .menu-btn{ padding:10px 14px;font-size:11px }
-  .copy{ left:24px;right:24px;max-width:none }
-  .hero .eyebrow{ left:24px;top:22% }
-  .product-wrap{ left:50%;top:auto;bottom:0;transform:translateX(-50%) }
-  .product-wrap img{ height:42vh;opacity:.42 }
-  .bottom-logo{ padding:0 24px;bottom:18px }
-  .hero{ min-height: 100vh; }
-  .headline{ font-size: 36px;white-space:normal }
+  .hero{
+    min-height:100dvh;
+  }
+  .bg-x{
+    left:70%;
+    top:56%;
+    font-size:124vh;
+    opacity:0.72;
+    z-index:0;
+  }
+  .hero .eyebrow{
+    left:24px;
+    top:max(96px, calc(84px + env(safe-area-inset-top)));
+    right:24px;
+    gap:12px;
+  }
+  .hero .eyebrow .ja{
+    font-size:11px;
+    letter-spacing:0.08em;
+    line-height:1.6;
+  }
+  .copy{
+    left:24px;
+    right:24px;
+    top:max(146px, calc(132px + env(safe-area-inset-top)));
+    transform:none;
+    max-width:none;
+    z-index:4;
+  }
+  .headline{
+    font-size:46px;
+    line-height:1.08;
+    white-space:normal;
+    text-wrap:balance;
+  }
+  .headline--animated{
+    gap:0.12em;
+  }
+  .sub{
+    margin-top:22px;
+    max-width:none;
+    font-size:14px;
+    line-height:1.6;
+    text-wrap:pretty;
+  }
+  .copy .cta-row{
+    display:none;
+  }
+  .product-wrap{
+    left:50%;
+    right:auto;
+    top:auto;
+    bottom:max(116px, calc(98px + env(safe-area-inset-bottom)));
+    transform:translateX(-50%);
+    width:100%;
+    display:flex;
+    justify-content:center;
+    z-index:2;
+  }
+  .product-wrap img{
+    width:min(90vw, 470px);
+    height:auto;
+    max-height:33vh;
+    opacity:1;
+  }
+  .hero-actions{
+    position:absolute;
+    left:24px;
+    right:24px;
+    bottom:max(20px, calc(18px + env(safe-area-inset-bottom)));
+    z-index:5;
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:12px;
+  }
+  .hero-actions .btn{
+    width:100%;
+    justify-content:center;
+    padding:16px 18px;
+    font-size:14px;
+  }
+  .hero-actions .btn .arr{
+    display:none;
+  }
+  .bottom-logo{
+    display:none;
+  }
   .problem-3 .fact .yr{ font-size:56px }
   .pricing .pcard{ padding:28px 26px }
   .pricing .pcard .pl-price .yen{ font-size:48px }
@@ -1200,4 +1326,14 @@ footer.footer .fnote{
   .usecases .uc-panel{ padding:28px 24px }
   .usecases .uc-panel .ba{ grid-template-columns:1fr;gap:14px }
   .usecases .uc-panel .ba .ar{ transform: rotate(90deg);justify-self:center }
+}
+@media (max-width: 424px){
+  .headline{
+    font-size:40px;
+  }
+}
+@media (max-width: 374px){
+  .headline{
+    font-size:34px;
+  }
 }

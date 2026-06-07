@@ -8,7 +8,7 @@ export function TopHeader() {
         <Logo fill="#ffffff" />
       </Link>
       <nav className="nav" aria-label="Primary">
-        <Link href="/product">製品概要</Link>
+        <Link href="/#home-product-light">製品概要</Link>
         <Link href="/about">会社概要</Link>
         <Link href="/download" className="btn btn-ghost topbar-btn">
           資料請求

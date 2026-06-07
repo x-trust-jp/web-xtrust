@@ -38,7 +38,7 @@ const COLS = [
   {
     title: "製品・サービス",
     links: [
-      { label: "製品概要", href: "/product" },
+      { label: "製品概要", href: "/#home-product-light" },
       { label: "資料請求", href: "/download" },
       { label: "お問い合わせ", href: "/contact" },
     ],
@@ -63,9 +63,7 @@ export function SiteFooter() {
             <Logo fill="#ffffff" />
           </Link>
           <p className="ft__tagline">
-            ローカルで、オフラインなAIを。
-            <br />
-            高機密データを、1バイトも外部に漏らさず。
+            オフラインAIで、すべての業務にゼロリスク環境を
           </p>
           <div className="ft__social">
             {SOCIALS.map((s) => (

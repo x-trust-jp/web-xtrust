@@ -18,6 +18,8 @@ import { S13FinalCta } from "@/components/sections/S13FinalCta";
 import { S14Footer } from "@/components/sections/S14Footer";
 
 export function ProductLandingPage({
+  useOfficialHeroHeader = false,
+  useAnimatedHeroCopy = false,
   showTopIntroSection = false,
   showTopCaseSection = false,
   showTopLifecycleSection = false,
@@ -25,6 +27,8 @@ export function ProductLandingPage({
   topCaseSectionVariant = "teal",
   showLegacySections = true,
 }: {
+  useOfficialHeroHeader?: boolean;
+  useAnimatedHeroCopy?: boolean;
   showTopIntroSection?: boolean;
   showTopCaseSection?: boolean;
   showTopLifecycleSection?: boolean;
@@ -35,7 +39,10 @@ export function ProductLandingPage({
   return (
     <>
       {showLegacySections ? <SectionMap /> : null}
-      <S01Hero />
+      <S01Hero
+        useOfficialHeader={useOfficialHeroHeader}
+        useAnimatedCopy={useAnimatedHeroCopy}
+      />
       {showTopIntroSection ? (
         <HomeProductSection
           variant="light"

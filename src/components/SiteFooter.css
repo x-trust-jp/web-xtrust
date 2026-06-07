@@ -117,4 +117,12 @@
   .ft__inner {
     grid-template-columns: 1fr;
   }
+
+  .ft__brand-logo svg {
+    height: 16px;
+  }
+
+  .ft__tagline {
+    max-width: none;
+  }
 }

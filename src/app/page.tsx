@@ -4,6 +4,8 @@ import { ProductLandingPage } from "@/components/ProductLandingPage";
 export default function Home() {
   return (
     <ProductLandingPage
+      useOfficialHeroHeader
+      useAnimatedHeroCopy
       showTopIntroSection
       showTopCaseSection
       showTopLifecycleSection

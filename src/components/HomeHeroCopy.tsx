@@ -1,8 +1,11 @@
+"use client";
+
 import Image from "next/image";
+import { FontReadyContainer } from "@/components/FontReadyContainer";
 
 export function HomeHeroCopy() {
   return (
-    <div className="home__copy is-ready">
+    <FontReadyContainer className="home__copy">
       <h1 className="home__headline">
         <span className="home__headline-line">ローカルで、</span>
         <span className="home__headline-line home__headline-line--accent">
@@ -27,6 +30,6 @@ export function HomeHeroCopy() {
         <br />
         これまで諦めていた現場のAIXが、いよいよ始まります。
       </p>
-    </div>
+    </FontReadyContainer>
   );
 }

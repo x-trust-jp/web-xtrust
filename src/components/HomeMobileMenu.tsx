@@ -4,11 +4,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/Logo";
 
-const PRIMARY_LINKS = [
-  { label: "製品概要", href: "/product" },
-  { label: "会社概要", href: "/about" },
-];
-
 const ACTION_LINKS = [
   { label: "資料請求", href: "/download" },
   { label: "お問い合わせ", href: "/product#sec-13" },
@@ -42,7 +37,18 @@ const SOCIALS = [
   },
 ];
 
-export function HomeMobileMenu() {
+export function HomeMobileMenu({
+  theme = "light",
+  productOverviewHref = "/#home-product-light",
+}: {
+  theme?: "light" | "dark";
+  productOverviewHref?: string;
+}) {
+  const primaryLinks = [
+    { label: "製品概要", href: productOverviewHref },
+    { label: "会社概要", href: "/about" },
+  ];
+
   const dialogRef = useRef<HTMLDialogElement>(null);
   const closeTimerRef = useRef<number | null>(null);
   const [open, setOpen] = useState(false);
@@ -123,7 +129,7 @@ export function HomeMobileMenu() {
     <>
       <button
         type="button"
-        className={`home__menuBtn${open && !closing ? " is-open" : ""}`}
+        className={`home__menuBtn home__menuBtn--${theme}${open && !closing ? " is-open" : ""}`}
         aria-label={open && !closing ? "メニューを閉じる" : "メニューを開く"}
         aria-expanded={open && !closing}
         aria-controls="home-mobile-menu"
@@ -170,7 +176,7 @@ export function HomeMobileMenu() {
           </div>
 
           <nav className="homeMenuDialog__nav" aria-label="Mobile Primary">
-            {PRIMARY_LINKS.map((link) => (
+            {primaryLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}

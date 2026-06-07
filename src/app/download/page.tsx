@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { RequestForm } from "./RequestForm";
 import { SiteFooter } from "@/components/SiteFooter";
+import { SiteHeader } from "@/components/SiteHeader";
 import "./download.css";
 
 export const metadata: Metadata = {
@@ -14,16 +14,7 @@ export const metadata: Metadata = {
 export default function DownloadPage() {
   return (
     <main className="dl">
-      <header className="dl__header">
-        <Link href="/" className="dl__logo" aria-label="XTRUST">
-          <Logo fill="#ffffff" />
-        </Link>
-        <nav className="dl__nav" aria-label="Primary">
-          <Link href="/product">製品概要</Link>
-          <Link href="/about">会社概要</Link>
-          <Link href="/" className="dl__nav--keep">トップ</Link>
-        </nav>
-      </header>
+      <SiteHeader theme="dark" />
 
       <div className="dl__container">
         {/* Left: material info */}

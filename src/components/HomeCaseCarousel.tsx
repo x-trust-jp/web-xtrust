@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffectEvent, useState } from "react";
+import { useEffectEvent, useRef, useState } from "react";
 
 type CaseCard = {
   step: string;
@@ -24,7 +24,7 @@ type CaseSlide = {
 const CASES: CaseSlide[] = [
   {
     eyebrow: "ケース1: AI議事録",
-    headline: "多言語会議を、文字起こし・翻訳・議事録化",
+    headline: "AI議事録、リアルタイム多言語翻訳で、会議をサポート",
     description:
       "会議音声を文字起こしし、必要に応じて翻訳し、決定事項・ToDo・議事録の下書きとして整理。さまざまな言語が飛び交う会議でも、全員が同じ情報を見ながら進められます。",
     cards: [
@@ -140,6 +140,8 @@ export function HomeCaseCarousel({
 }) {
   const [trackIndex, setTrackIndex] = useState(1);
   const [isTransitionEnabled, setIsTransitionEnabled] = useState(true);
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const touchDeltaRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 
   const loopedCases = [CASES[CASES.length - 1], ...CASES, CASES[0]];
   const activeIndex = (trackIndex - 1 + CASES.length) % CASES.length;
@@ -172,6 +174,66 @@ export function HomeCaseCarousel({
     }
   });
 
+  const handleTouchStart = useEffectEvent((event: React.TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+    touchDeltaRef.current = { x: 0, y: 0 };
+  });
+
+  const handleTouchMove = useEffectEvent((event: React.TouchEvent<HTMLDivElement>) => {
+    if (!touchStartRef.current) {
+      return;
+    }
+
+    const touch = event.touches[0];
+    touchDeltaRef.current = {
+      x: touch.clientX - touchStartRef.current.x,
+      y: touch.clientY - touchStartRef.current.y,
+    };
+  });
+
+  const handleTouchEnd = useEffectEvent(() => {
+    const { x, y } = touchDeltaRef.current;
+    touchStartRef.current = null;
+    touchDeltaRef.current = { x: 0, y: 0 };
+
+    if (Math.abs(x) < 48 || Math.abs(x) < Math.abs(y)) {
+      return;
+    }
+
+    if (x < 0) {
+      goToNext();
+      return;
+    }
+
+    goToPrev();
+  });
+
+  const renderControls = () => (
+    <div className="home-case__controls" aria-label="ケース切り替え">
+      <button type="button" className="home-case__button" onClick={goToPrev}>
+        前
+      </button>
+      <div className="home-case__dots">
+        {CASES.map((slide, index) => (
+          <button
+            key={slide.eyebrow}
+            type="button"
+            className={`home-case__dot${index === activeIndex ? " is-active" : ""}`}
+            aria-label={`${slide.eyebrow}を表示`}
+            aria-pressed={index === activeIndex}
+            onClick={() => goToSlide(index)}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
+      <button type="button" className="home-case__button" onClick={goToNext}>
+        次
+      </button>
+    </div>
+  );
+
   return (
     <section
       className={`home-product home-case ${
@@ -201,12 +263,20 @@ export function HomeCaseCarousel({
               transitionDuration: isTransitionEnabled ? undefined : "0ms",
             }}
             onTransitionEnd={handleTransitionEnd}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            onTouchCancel={handleTouchEnd}
           >
             {loopedCases.map((slide, index) => (
               <article className="home-case__slide" key={`${slide.eyebrow}-${index}`}>
                 <div className="home-product__top-row">
                   <h2 className="home-product__headline">{slide.headline}</h2>
                   <p className="home-product__body">{slide.description}</p>
+                </div>
+
+                <div className="home-case__controls-wrap home-case__controls-wrap--top">
+                  {renderControls()}
                 </div>
 
                 <div className="home-case__cards">
@@ -236,27 +306,8 @@ export function HomeCaseCarousel({
           </div>
         </div>
 
-        <div className="home-case__controls" aria-label="ケース切り替え">
-          <button type="button" className="home-case__button" onClick={goToPrev}>
-            Prev
-          </button>
-          <div className="home-case__dots">
-            {CASES.map((slide, index) => (
-              <button
-                key={slide.eyebrow}
-                type="button"
-                className={`home-case__dot${index === activeIndex ? " is-active" : ""}`}
-                aria-label={`${slide.eyebrow}を表示`}
-                aria-pressed={index === activeIndex}
-                onClick={() => goToSlide(index)}
-              >
-                0{index + 1}
-              </button>
-            ))}
-          </div>
-          <button type="button" className="home-case__button" onClick={goToNext}>
-            Next
-          </button>
+        <div className="home-case__controls-wrap home-case__controls-wrap--bottom">
+          {renderControls()}
         </div>
       </div>
     </section>
