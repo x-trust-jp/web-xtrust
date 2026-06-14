@@ -1,0 +1,332 @@
+/* ==========================================================
+   Concept video floating banner + modal player.
+   Scoped under .cvb / .cvbModal so it never collides with the
+   ported mockup stylesheets.
+   ========================================================== */
+
+.cvb {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 80;
+  width: 320px;
+  max-width: calc(100vw - 32px);
+  /* Hidden state: nudged down + faded, ignores pointer events. */
+  opacity: 0;
+  transform: translateY(16px) scale(0.98);
+  pointer-events: none;
+  transition:
+    opacity 0.32s ease,
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cvb.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* ---- Card (clickable thumbnail) ---- */
+.cvb__card {
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #0b0b10;
+  background-size: cover;
+  background-position: center;
+  box-shadow:
+    0 10px 28px -8px rgba(14, 13, 20, 0.32),
+    0 2px 8px -2px rgba(14, 13, 20, 0.18);
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s ease;
+}
+
+.cvb__card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 18px 40px -10px rgba(14, 13, 20, 0.42),
+    0 4px 12px -2px rgba(14, 13, 20, 0.22);
+}
+
+.cvb__card:focus-visible {
+  outline: 3px solid #2f80ed;
+  outline-offset: 3px;
+}
+
+.cvb__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(14, 13, 20, 0) 35%,
+    rgba(14, 13, 20, 0.55) 100%
+  );
+}
+
+/* ---- Center play button (YouTube-like) ---- */
+.cvb__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 4px 14px -2px rgba(14, 13, 20, 0.45);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cvb__play::before {
+  /* Soft pulse ring */
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  animation: cvbPulse 2.4s ease-out infinite;
+}
+
+.cvb__play svg {
+  width: 24px;
+  height: 24px;
+  margin-left: 2px;
+  fill: #0e0d14;
+}
+
+.cvb__card:hover .cvb__play {
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+@keyframes cvbPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ---- Meta strip ---- */
+.cvb__meta {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cvb__label {
+  font-family: "Inter", "Noto Sans JP", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.cvb__duration {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: #ffffff;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(14, 13, 20, 0.55);
+  backdrop-filter: blur(4px);
+}
+
+/* ---- Dismiss (X) button ---- */
+.cvb__close {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  color: #ffffff;
+  background: #14131a;
+  box-shadow: 0 2px 8px -2px rgba(14, 13, 20, 0.5);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cvb__close:hover {
+  background: #2a2833;
+  transform: scale(1.06);
+}
+
+.cvb__close:focus-visible {
+  outline: 3px solid #2f80ed;
+  outline-offset: 2px;
+}
+
+.cvb__close svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  fill: none;
+}
+
+/* ---- Mobile tuning ---- */
+@media (max-width: 767px) {
+  .cvb {
+    right: 16px;
+    bottom: 16px;
+    width: 248px;
+  }
+  .cvb__play {
+    width: 46px;
+    height: 46px;
+  }
+  .cvb__play svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* ==========================================================
+   Modal player
+   ========================================================== */
+.cvbModal {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: 100vw;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  /* The dialog itself is the full-screen, clickable dim overlay. */
+  background: rgba(8, 8, 12, 0.82);
+  backdrop-filter: blur(6px);
+}
+
+/* Center the player; closed dialogs stay display:none via the UA stylesheet. */
+.cvbModal[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The dim + blur is provided by the dialog's own full-screen background
+   (above). Keep the native ::backdrop transparent so the two layers don't
+   stack into a near-opaque black. */
+.cvbModal::backdrop {
+  background: transparent;
+}
+
+.cvbModal[open] .cvbModal__frame {
+  animation: cvbModalIn 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes cvbModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.cvbModal__frame {
+  position: relative;
+  width: min(960px, 92vw);
+  max-width: 92vw;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.7);
+  background: #000;
+}
+
+.cvbModal__video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+.cvbModal__close {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+  transition: background 0.2s ease;
+}
+
+.cvbModal__close:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.cvbModal__close:focus-visible {
+  outline: 3px solid #2f80ed;
+  outline-offset: 2px;
+}
+
+.cvbModal__close svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  fill: none;
+}
+
+@media (max-width: 767px) {
+  .cvbModal__close {
+    top: 14px;
+    right: 14px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cvb,
+  .cvb__card,
+  .cvb__play,
+  .cvbModal[open] {
+    transition: none;
+    animation: none;
+  }
+  .cvb__play::before {
+    animation: none;
+  }
+}

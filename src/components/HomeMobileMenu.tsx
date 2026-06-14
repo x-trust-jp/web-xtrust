@@ -50,7 +50,10 @@ export function HomeMobileMenu({
   ];
 
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const closeTimerRef = useRef<number | null>(null);
+  const openedWithKeyboardRef = useRef(false);
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
 
@@ -77,6 +80,16 @@ export function HomeMobileMenu({
       if (!dialog.open) {
         dialog.showModal();
       }
+
+      window.requestAnimationFrame(() => {
+        if (openedWithKeyboardRef.current) {
+          closeButtonRef.current?.focus({ preventScroll: true });
+          return;
+        }
+
+        dialog.focus({ preventScroll: true });
+      });
+
       return;
     }
 
@@ -102,6 +115,9 @@ export function HomeMobileMenu({
     const handleClose = () => {
       setOpen(false);
       setClosing(false);
+      if (openedWithKeyboardRef.current) {
+        menuButtonRef.current?.focus({ preventScroll: true });
+      }
     };
 
     const handleCancel = (event: Event) => {
@@ -128,11 +144,20 @@ export function HomeMobileMenu({
   return (
     <>
       <button
+        ref={menuButtonRef}
         type="button"
         className={`home__menuBtn home__menuBtn--${theme}${open && !closing ? " is-open" : ""}`}
         aria-label={open && !closing ? "メニューを閉じる" : "メニューを開く"}
         aria-expanded={open && !closing}
         aria-controls="home-mobile-menu"
+        onPointerDown={() => {
+          openedWithKeyboardRef.current = false;
+        }}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            openedWithKeyboardRef.current = true;
+          }
+        }}
         onClick={() => {
           if (open) {
             closeMenu();
@@ -153,6 +178,7 @@ export function HomeMobileMenu({
         id="home-mobile-menu"
         className={`homeMenuDialog${open && !closing ? " is-open" : ""}`}
         aria-label="モバイルメニュー"
+        tabIndex={-1}
       >
         <div className="homeMenuDialog__surface">
           <div className="homeMenuDialog__top">
@@ -165,6 +191,7 @@ export function HomeMobileMenu({
               <Logo fill="#ffffff" />
             </Link>
             <button
+              ref={closeButtonRef}
               type="button"
               className="homeMenuDialog__close"
               aria-label="メニューを閉じる"
