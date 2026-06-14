@@ -1,6 +1,7 @@
 import "./home.css";
 import { ProductLandingPage } from "@/components/ProductLandingPage";
 import { ConceptVideoBanner } from "@/components/ConceptVideoBanner";
+import { FloatingMenuButton } from "@/components/FloatingMenuButton";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
         showLegacySections={false}
       />
       <ConceptVideoBanner />
+      <FloatingMenuButton productOverviewHref="/#home-product-light" />
     </>
   );
 }

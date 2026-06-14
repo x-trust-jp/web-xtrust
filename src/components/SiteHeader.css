@@ -1,23 +1,5 @@
-.home__header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 32px clamp(28px, 6vw, 84px);
-  transition: background-color 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
-}
-
-.home__header.is-scrolled {
-  padding-top: 16px;
-  padding-bottom: 16px;
-  background: rgba(250, 250, 251, 0.88);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 1px 0 rgba(20, 19, 26, 0.08);
+.siteHeader--stacked {
+  position: relative;
 }
 
 .siteHeader--stacked {
@@ -113,8 +95,8 @@
 }
 
 .home__menuBtn--dark {
-  border-color: rgba(20, 19, 26, 0.18);
-  background: rgba(255, 255, 255, 0.56);
+  border-color: rgba(20, 19, 26, 0.22);
+  background: #ffffff;
   color: #14131a;
 }
 

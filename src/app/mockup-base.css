@@ -219,7 +219,7 @@ img{ -webkit-user-drag:none; user-select:none }
 }
 
 .hero .eyebrow{
-  position:absolute;left:88px;top:18%;z-index:4;
+  position:absolute;left:clamp(88px,9vw,180px);top:18%;z-index:4;
   color:rgba(255,255,255,0.78);
 }
 .hero .eyebrow .num,
@@ -227,7 +227,7 @@ img{ -webkit-user-drag:none; user-select:none }
 .hero .eyebrow .line{ background:rgba(255,255,255,0.42) }
 
 .copy{
-  position:absolute;left:88px;top:50%;transform:translateY(-50%);
+  position:absolute;left:clamp(88px,9vw,180px);top:50%;transform:translateY(-50%);
   z-index:4;max-width:640px;
 }
 .headline{
@@ -1193,7 +1193,7 @@ footer.footer .fnote{
    Responsive
    ========================================================== */
 @media (min-width: 1201px){
-  .product-wrap{ left:50%; right:auto; }
+  .product-wrap{ left:47%; right:auto; }
   .product-wrap img{ width:900px; }
 }
 @media (max-width: 1200px){

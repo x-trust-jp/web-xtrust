@@ -40,9 +40,11 @@ const SOCIALS = [
 export function HomeMobileMenu({
   theme = "light",
   productOverviewHref = "/#home-product-light",
+  dialogId = "home-mobile-menu",
 }: {
   theme?: "light" | "dark";
   productOverviewHref?: string;
+  dialogId?: string;
 }) {
   const primaryLinks = [
     { label: "製品概要", href: productOverviewHref },
@@ -149,7 +151,7 @@ export function HomeMobileMenu({
         className={`home__menuBtn home__menuBtn--${theme}${open && !closing ? " is-open" : ""}`}
         aria-label={open && !closing ? "メニューを閉じる" : "メニューを開く"}
         aria-expanded={open && !closing}
-        aria-controls="home-mobile-menu"
+        aria-controls={dialogId}
         onPointerDown={() => {
           openedWithKeyboardRef.current = false;
         }}
@@ -175,7 +177,7 @@ export function HomeMobileMenu({
 
       <dialog
         ref={dialogRef}
-        id="home-mobile-menu"
+        id={dialogId}
         className={`homeMenuDialog${open && !closing ? " is-open" : ""}`}
         aria-label="モバイルメニュー"
         tabIndex={-1}
