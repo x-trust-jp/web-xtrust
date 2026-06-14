@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { HomeMobileMenu } from "@/components/HomeMobileMenu";
 import { Logo } from "@/components/Logo";
@@ -12,9 +15,18 @@ export function SiteHeader({
   theme?: "light" | "dark";
   productOverviewHref?: string;
 }) {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <header
-      className={`home__header home__header--${theme}${overlay ? "" : " siteHeader--stacked"}`}
+      className={`home__header home__header--${theme}${overlay ? "" : " siteHeader--stacked"}${scrolled ? " is-scrolled" : ""}`}
     >
       <Link href="/" className="home__logo" aria-label="XTRUST">
         <Logo fill={theme === "dark" ? "#14131a" : "#ffffff"} />
