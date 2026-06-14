@@ -1,0 +1,67 @@
+/* Contact page additions — layered on top of download.css shared styles */
+
+.ct__textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.7;
+}
+
+/* Inquiry type cards on the left */
+.ct__categories {
+  margin-top: 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ct__category {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  border-radius: 12px;
+  background: rgba(20, 19, 26, 0.03);
+  border: 1px solid rgba(20, 19, 26, 0.1);
+}
+
+.ct__category-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(20, 19, 26, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+}
+
+.ct__category-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ct__category-title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #14131a;
+}
+
+.ct__category-desc {
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(20, 19, 26, 0.65);
+}
+
+.ct__response-note {
+  margin-top: 28px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: rgba(20, 19, 26, 0.65);
+  padding: 14px 18px;
+  border-radius: 10px;
+  background: rgba(20, 19, 26, 0.03);
+  border-left: 3px solid rgba(20, 19, 26, 0.2);
+}

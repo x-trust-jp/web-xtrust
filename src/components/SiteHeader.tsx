@@ -23,9 +23,9 @@ export function SiteHeader({
         <Link href={productOverviewHref}>製品概要</Link>
         <Link href="/about">会社概要</Link>
         <Link href="/download">資料請求</Link>
-        <a href="/product#sec-13" className="home__nav-cta">
+        <Link href="/contact" className="home__nav-cta">
           お問い合わせ
-        </a>
+        </Link>
       </nav>
       <div className="home__menu">
         <HomeMobileMenu theme={theme} productOverviewHref={productOverviewHref} />

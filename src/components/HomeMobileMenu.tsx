@@ -6,7 +6,7 @@ import { Logo } from "@/components/Logo";
 
 const ACTION_LINKS = [
   { label: "資料請求", href: "/download" },
-  { label: "お問い合わせ", href: "/product#sec-13" },
+  { label: "お問い合わせ", href: "/contact" },
 ];
 
 const SOCIALS = [

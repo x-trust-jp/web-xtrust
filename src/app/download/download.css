@@ -50,28 +50,16 @@
   color: rgba(20, 19, 26, 0.78);
 }
 
-/* cover thumbnail placeholder */
+/* cover thumbnail */
 .dl__thumb {
+  display: block;
   margin-top: 28px;
+  width: 100%;
   aspect-ratio: 16 / 9;
   border-radius: 12px;
-  border: 1px solid rgba(20, 19, 26, 0.14);
-  background: linear-gradient(150deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.34));
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  text-align: center;
-}
-.dl__thumb svg {
-  height: 26px;
-  width: auto;
-}
-.dl__thumb span {
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  color: rgba(20, 19, 26, 0.62);
+  border: 1px solid rgba(20, 19, 26, 0.1);
+  object-fit: cover;
+  box-shadow: 0 8px 28px rgba(20, 19, 26, 0.1);
 }
 
 .dl__points {

@@ -1,7 +1,22 @@
-.siteHeader--stacked {
-  position: relative;
+/* Base layout — applies on every page that uses SiteHeader.
+   Positioning (absolute vs relative) is set per-context below. */
+.home__header {
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px clamp(28px, 6vw, 84px);
 }
 
+/* Overlay variant (hero): sits on top of background image */
+.home__header:not(.siteHeader--stacked) {
+  position: absolute;
+}
+
+/* Stacked variant (download, etc.): flows in the document */
 .siteHeader--stacked {
   position: relative;
 }

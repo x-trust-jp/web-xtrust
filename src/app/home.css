@@ -48,18 +48,7 @@
     linear-gradient(180deg, rgba(107, 189, 216, 0.14) 0%, transparent 28%, transparent 72%, rgba(90, 172, 200, 0.12) 100%);
 }
 
-/* ---- Transparent header (no bar, logo + nav float on photo) ---- */
-.home__header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 32px clamp(28px, 6vw, 84px);
-}
+/* Layout + positioning is handled by SiteHeader.css */
 
 .home__header--dark .home__nav a {
   color: #14131a;

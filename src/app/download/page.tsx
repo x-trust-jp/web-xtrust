@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Logo } from "@/components/Logo";
 import { RequestForm } from "./RequestForm";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -29,10 +28,12 @@ export default function DownloadPage() {
             通信機能0のローカルAI搭載ノートPCレンタルの全体像をまとめました。
           </p>
 
-          <div className="dl__thumb" aria-hidden="true">
-            <Logo fill="#ffffff" />
-            <span>SERVICE INTRODUCTION</span>
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/concept-banner.jpg"
+            alt="XTRUST サービス紹介資料 表紙"
+            className="dl__thumb"
+          />
 
           <div className="dl__points">
             <h2>この資料でわかること</h2>
